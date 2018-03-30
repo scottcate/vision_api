@@ -1,0 +1,24 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "AzureWebJobsDashboard": "UseDevelopmentStorage=true",
+
+    "AzureVisionApiSubscriptionKey": "<< Azure Vision API Key: Start Here https://cda.ms/nq >>",
+    "AzureVisionUriBase": "https://<< region >>.api.cognitive.microsoft.com/vision/v1.0/analyze",
+
+    "TwitterTokenSecret": "<<Twitter Token: apps.twitter.com >>",
+    "TwitterConsumerKey": "<< Consumer Key >>",
+    "TwitterConsumerSecret": "<< Consumer Secret >>",
+    "TwitterAuthenticationToken": "<< Auth Token >>",
+
+    "TwitterSearch": "%23vision_api%20OR%20%40vision_api",
+    "TwitterSearchCount": "1",
+
+    "JsonDetailsUrlFormat": "https://<< your site location >>/api/tweetmediadetails/{0}"
+  },
+  "Host": {
+    "LocalHttpPort": 7071,
+    "CORS": "*"
+  }
+}
