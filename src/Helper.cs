@@ -18,6 +18,9 @@ namespace TwitterVision
 {
     internal static class Helper
     {
+        internal static CloudStorageAccount StorageAccount = CloudStorageAccount.Parse(GetEnvironmentVariable("AzureWebJobsStorage"));
+        internal static CloudTableClient tableClient = StorageAccount.CreateCloudTableClient();
+
         internal static TwitterService TwitterService()
         {
             string TwitterTokenSecret = GetEnvironmentVariable("TwitterTokenSecret");
@@ -30,11 +33,18 @@ namespace TwitterVision
             return service;
         }
 
-        internal static TweetEntity FetchTweetFromStorage(CloudTable table, string tweetId)
+        internal static TweetEntity FetchTweetFromStorage(string tweetId)
         {
-            var partitionKey = tweetId.Substring(0, 4);
-            var rowKey = tweetId.Substring(4);
-            
+            CloudTable table = tableClient.GetTableReference("visiontweet");
+
+            if(string.IsNullOrEmpty(tweetId) || tweetId.Length<16)
+            {
+                return null;
+            }
+
+            var partitionKey = tweetId.Substring(0, 5);
+            var rowKey = tweetId.Substring(5);
+
             TableOperation retrieveOperation = TableOperation.Retrieve<TweetEntity>(partitionKey, rowKey);
             return table.Execute(retrieveOperation).Result as TweetEntity;
         }
@@ -46,7 +56,7 @@ namespace TwitterVision
 
             string requestParameters = "visualFeatures=Categories,Description,Color&language=en";
             string uri = GetEnvironmentVariable("AzureVisionUriBase") + "?" + requestParameters;
-            
+
             var body = "{\"url\":\"" + media.MediaUrl + "\"}";
             var content = new StringContent(body, Encoding.UTF8, "application/json");
 
@@ -55,7 +65,7 @@ namespace TwitterVision
 
             return JsonConvert.DeserializeObject<VisionDescription>(result);
         }
-        
+
         public static string GetEnvironmentVariable(string name)
         {
             // Documentation: Get an environment variable or an app setting value

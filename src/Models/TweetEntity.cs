@@ -8,11 +8,17 @@ namespace TwitterVision.Models
     {
         public TweetEntity() { }
 
+        public TweetEntity(TwitterStatus status)
+            : this(status.IdStr, status.FullText, status.InReplyToStatusId.ToString())
+        {
+            TweetJson = JsonConvert.SerializeObject(status);
+        }
+
         public TweetEntity(string tweetId, string text, string replyToTweetId = "", string tweetJson = "", string visionJson = "")
         {
             TweetId = tweetId;
-            PartitionKey = tweetId.Substring(0,4);
-            RowKey = tweetId.Substring(4);
+            PartitionKey = tweetId.Substring(0,5);
+            RowKey = tweetId.Substring(5);
             ReplyToTweetId = replyToTweetId;
             Text = text;
             TweetJson = tweetJson;

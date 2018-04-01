@@ -22,7 +22,6 @@ namespace TwitterVision.Twitter
         [FunctionName("TweetMediaDetails")]
         public static HttpResponseMessage Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "TweetMediaDetails/{tweetId}")]
-            [Table("visiontweet")] CloudTable visionTweetStorageTable,
             HttpRequestMessage req,
             string tweetId,
             TraceWriter log)
@@ -32,7 +31,7 @@ namespace TwitterVision.Twitter
                 return BuildResponse(HttpStatusCode.OK, ErrorIdNotFound);
             }
 
-            var tweetDetails = Helper.FetchTweetFromStorage(visionTweetStorageTable, tweetId);
+            var tweetDetails = Helper.FetchTweetFromStorage(tweetId);
             if (tweetDetails == null)
             {
                 return BuildResponse(HttpStatusCode.OK, ErrorTweetNotFound);

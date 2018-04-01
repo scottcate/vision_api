@@ -9,18 +9,20 @@ namespace TwitterVision.Twitter
     public static class TwitterSearch
     {
         [FunctionName("TwitterSearch")]
-        public static async Task Run([TimerTrigger("*/20 * * * * *")]TimerInfo myTimer, 
+        public static async Task Run([TimerTrigger("*/15 * * * * *")]TimerInfo myTimer, 
             [Queue("visionscanner")] IAsyncCollector<string> visionScannerQueue,
             TraceWriter log)
         {
             log.Info($"TwitterSearch function started");
 
-            var searchResult = Helper.TwitterService().Search(new SearchOptions
+            SearchOptions options = new SearchOptions
             {
                 Q = Helper.GetEnvironmentVariable("TwitterSearch"),
                 Resulttype = TwitterSearchResultType.Recent,
                 Count = int.Parse(Helper.GetEnvironmentVariable("TwitterSearchCount"))
-            });
+            };
+
+            var searchResult = Helper.TwitterService().Search(options);
 
             log.Info($"TwitterSearch function found: {searchResult.Statuses.Count()}");
             

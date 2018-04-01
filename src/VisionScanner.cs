@@ -25,19 +25,21 @@ namespace TwitterVision.Twitter
             long tweetId = long.Parse(tweetQuery);
             long originalTweetId = tweetId;
             List<string> screenNamesToReplyTo = new List<string>();
-            var tweetDetails = Helper.FetchTweetFromStorage(visionTweetTable, tweetQuery);
-            if (tweetDetails != null) //already processed
-            {
-                log.Info($"VisionScanner Already Processed TweetId: {tweetQuery}");
-                return; 
-            }
-
+            
             var service = Helper.TwitterService();
             TwitterStatus tweet = null;
             TweetEntity tweetEntity = null;
 
             while (tweet == null)
             {
+                //moving this check inside the while loop to stop processing retweets
+                var tweetDetails = Helper.FetchTweetFromStorage(tweetId.ToString());
+                if (tweetDetails != null) //already processed
+                {
+                    log.Info($"VisionScanner Already Processed TweetId: {tweetId}");
+                    return;
+                }
+
                 tweet = service.GetTweet(new GetTweetOptions
                 {
                     Id = tweetId,
@@ -45,17 +47,14 @@ namespace TwitterVision.Twitter
                     TweetMode = TweetMode.Extended
                 });
 
+                //build up mentions list for replyto - will distinct later
+                screenNamesToReplyTo.Add("@" + tweet.User.ScreenName);
                 foreach (var mention in tweet.Entities.Mentions)
                 {
                     screenNamesToReplyTo.Add("@" + mention.ScreenName);
                 }
-                screenNamesToReplyTo.Add("@" + tweet.User.ScreenName);
 
-                tweetEntity = new TweetEntity(
-                      tweet.IdStr,
-                      tweet.FullText,
-                      tweet.InReplyToStatusId.ToString(),
-                      JsonConvert.SerializeObject(tweet));
+                tweetEntity = new TweetEntity(tweet);
 
                 //no media? try the parent
                 if (!tweet.Entities.Media.Any())

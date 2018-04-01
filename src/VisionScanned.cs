@@ -37,13 +37,13 @@ namespace TwitterVision.Twitter
                     TrimUser = false
                 };
 
-                //var sentStatus = service.SendTweet(options, (tweet, response) =>
-                //{
-                //    if (response.StatusCode != HttpStatusCode.OK)
-                //    {
-                //        throw new Exception(response.StatusCode.ToString());
-                //    }
-                //});
+                var sentStatus = service.SendTweet(options, (tweet, response) =>
+                {
+                    if (response.StatusCode != HttpStatusCode.OK)
+                    {
+                        throw new Exception(response.StatusCode.ToString());
+                    }
+                });
             }
 
             log.Info($"VisionScanned function processed TweetId: {dto.TwitterStatus.Id}");
