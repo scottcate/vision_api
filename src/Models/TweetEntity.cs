@@ -25,7 +25,7 @@ namespace TwitterVision.Models
             VisionJson = visionJson;
         }
 
-        public string TweetId { get; }
+        public string TweetId { get; set; }
         public string Text { get; set; }
         public string TweetJson { get; set; }
         public string VisionJson { get; set; }

@@ -46,7 +46,9 @@ namespace TwitterVision
             var rowKey = tweetId.Substring(5);
 
             TableOperation retrieveOperation = TableOperation.Retrieve<TweetEntity>(partitionKey, rowKey);
-            return table.Execute(retrieveOperation).Result as TweetEntity;
+            TweetEntity tweetEntity = table.Execute(retrieveOperation).Result as TweetEntity;
+            tweetEntity.TweetId = tweetId;
+            return tweetEntity;
         }
 
         internal static async Task<VisionDescription> FetchVisionDescriptionAsync(TwitterStatus tweet, TwitterMedia media)
