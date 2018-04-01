@@ -9,7 +9,7 @@ namespace TwitterVision.Twitter
     public static class TwitterSearch
     {
         [FunctionName("TwitterSearch")]
-        public static async Task Run([TimerTrigger("*/15 * * * * *")]TimerInfo myTimer, 
+        public static async Task Run([TimerTrigger("*/20 * * * * *")]TimerInfo myTimer, 
             [Queue("visionscanner")] IAsyncCollector<string> visionScannerQueue,
             TraceWriter log)
         {

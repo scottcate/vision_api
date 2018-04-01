@@ -47,7 +47,10 @@ namespace TwitterVision
 
             TableOperation retrieveOperation = TableOperation.Retrieve<TweetEntity>(partitionKey, rowKey);
             TweetEntity tweetEntity = table.Execute(retrieveOperation).Result as TweetEntity;
-            tweetEntity.TweetId = tweetId;
+            if (tweetEntity != null)
+            {
+                tweetEntity.TweetId = tweetId;
+            }
             return tweetEntity;
         }
 
