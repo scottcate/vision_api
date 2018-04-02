@@ -36,7 +36,7 @@ GetEnvironmentVariable("<< key name >>")
 This example is posting a photo that is already uploaded from twitter. So the method isn't uploading a byte[] (that overload is available, just not used in this demo). Post that to the helper method and you'll get back a [VisionDescription](https://github.com/scottcate/vision_api/blob/master/src/Models/VisionDescription.cs).
 
 ```
-FetchVisionDescriptionAsync(TwitterStatus tweet, TwitterMedia media)
+[FetchVisionDescriptionAsync](https://github.com/scottcate/vision_api/blob/master/src/Helper.cs#L57)(TwitterStatus tweet, TwitterMedia media)
 ```
 
 All the method really does is post a small JSON body of the url of the photo.
