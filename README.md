@@ -14,7 +14,7 @@ If you would like to experiment with the Azure Vision API, you'll need a few ite
 
 ### Prerequisites
 
-* Azure Account: [Free Trials Available](http://azure.com "Free or Paid")
+* Azure Account: [Free Trials Available](https://cda.ms/nR "Free or Paid")
 
 ### Installing
 
