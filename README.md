@@ -18,7 +18,7 @@ If you would like to experiment with the Azure Vision API, you'll need a few ite
 
 ### Installing
 
-Once the code is cloned, you'll find a [local.settings.json](./src/local.settigns.json) file in the root. This file has all the variables you'll need to populate to get started. You probably won't need to post results back to twitter, if you're just trying to use the Vision API. So the three keys you'll want to complete are ...
+Once the code is cloned, you'll find a [local.settings.json](https://github.com/scottcate/vision_api/blob/master/src/local.settings.json) file in the root. This file has all the variables you'll need to populate to get started. You probably won't need to post results back to twitter, if you're just trying to use the Vision API. So the three keys you'll want to complete are ...
 
 
 * AzureWebJobsStorage
