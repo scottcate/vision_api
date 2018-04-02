@@ -1,10 +1,10 @@
 # Twitter Vision Bot: @vision_api
 
-I wanted to experiement with Azure Congnitive Services, Vision API. SO I thought it would be fun to make a social account that could talk to anyone interested. So @Vision_API on twitter was born. If tagged on a tweet (or reply) with a photo, the service will reply with an description of the photo.
+I wanted to experiment with Azure Cognitive Services, Vision API. SO I thought it would be fun to make a social account that could talk to anyone interested. So @Vision_API on Twitter was born. If tagged on a tweet (or reply) with a photo, the service will reply with a description of the photo.
 
 ## Getting Started: Consumer
 
-Simply ues twitter and tag the account @vision_api. ( #vision_api hashtag also works). Wait 30 seconds, and the bot should have replied to you with a description of the photo. If Media (a photo) isn't found on the actual tweet tagged, then the service will look up the thread (all the replies of the replies) and will return a description of the first photo found. This is fun to then reply to any photo on twitter to see the machines description.
+Simply use Twitter and tag the account @vision_api. ( #vision_api hashtag also works). Wait 30 seconds, and the bot should have replied to you with a description of the photo. If Media (a photo) isn't found on the actual tweet tagged, then the service will look up the thread (all the replies of the replies) and will return a description of the first photo found. This is fun to then reply to any photo on Twitter to see the machines description.
 
 The rest of this README addresses developers interested in also playing with the Azure Cog Services.
 
@@ -18,7 +18,7 @@ If you would like to experiment with the Azure Vision API, you'll need a few ite
 
 ### Installing
 
-Once the code is cloned, you'll find a [local.settings.json](https://github.com/scottcate/vision_api/blob/master/src/local.settings.json) file in the root. This file has all the variables you'll need to populate to get started. You probably won't need to post results back to twitter, if you're just trying to use the Vision API. So the three keys you'll want to complete are ...
+Once the code is cloned, you'll find a [local.settings.json](https://github.com/scottcate/vision_api/blob/master/src/local.settings.json) file in the root. This file has all the variables you'll need to populate to get started. You probably won't need to post results back to Twitter, if you're just trying to use the Vision API. So the three keys you'll want to complete are ...
 
 
 * AzureWebJobsStorage
@@ -31,9 +31,9 @@ These values will be retrieved in your code with the static method
 GetEnvironmentVariable("<< key name >>")
 ```
 
-### Analyizing a photo
+### Analyzing a photo
 
-This example is posting a photo that is already uploaded from twitter. So the method isn't uploading a byte[] (that overload is available, just not used in this demo). Post that to the helper method [FetchVisionDescriptionAsync](https://github.com/scottcate/vision_api/blob/master/src/Helper.cs#L57) and you'll get back a [VisionDescription](https://github.com/scottcate/vision_api/blob/master/src/Models/VisionDescription.cs).
+This example is posting a photo that is already uploaded from Twitter. So the method isn't uploading a byte[] (that overload is available, just not used in this demo). Post that to the helper method [FetchVisionDescriptionAsync](https://github.com/scottcate/vision_api/blob/master/src/Helper.cs#L57) and you'll get back a [VisionDescription](https://github.com/scottcate/vision_api/blob/master/src/Models/VisionDescription.cs).
 
 ```
 FetchVisionDescriptionAsync(TwitterStatus tweet, TwitterMedia media)
@@ -61,13 +61,13 @@ To the
 
 * **Scott Cate** - *Initial work* - [Twitter/@ScottCate](https://twitter.com/scottcate)
 
-See also the list of [contributors](https://github.com/scottcate/vision_api/graphs/contributors) who have (mauybe someday) participated in this project.
+See also the list of [contributors](https://github.com/scottcate/vision_api/graphs/contributors) who have (maybe someday) participated in this project.
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
-## Acknowledgments
+## Acknowledgements
 
 * Special thanks to the [contributors of Tweet Moa Sharp](https://github.com/Yortw/tweetmoasharp/graphs/contributors) - this would have been much harder without their work
 * Twitter friends who endured my countless #vision_api test tweets :)
