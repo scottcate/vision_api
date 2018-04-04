@@ -37,10 +37,13 @@ namespace TwitterVision.Twitter
                 var replyToNames = string.Join(" ", dto.UsersToReplyTo);
                 var status = $"{replyToNames} Confidence: {confidence,0:P2}" +
                          $"{Environment.NewLine}{Environment.NewLine}" +
-                         "Tags: {0}" +
-                         $"{Environment.NewLine}{Environment.NewLine}" +
+
                          $"{captionPrefix}: {vision.Value.description.captions[0].text}" +
                          $"{Environment.NewLine}{Environment.NewLine}" +
+                         
+                         "Tags: {0}" +
+                         $"{Environment.NewLine}{Environment.NewLine}" +
+                         
                          "Full API Result: {1}";
 
                 //20 is for the t.co link space
