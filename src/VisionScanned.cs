@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
+using Microsoft.WindowsAzure.Storage.Table;
 using Newtonsoft.Json;
 using TweetSharp;
 using TwitterVision.Models;
@@ -13,7 +14,8 @@ namespace TwitterVision.Twitter
     public static class VisionScanned
     {
         [FunctionName("VisionScanned")]
-        public static void Run([QueueTrigger("visionscanned")]string tweetEntity, 
+        public static void Run([QueueTrigger("visionscanned")]string tweetEntity,
+            [Table("visiontweet")] CloudTable visionTweetTable,
             TraceWriter log)
         {
             TweetScannedDTO dto = JsonConvert.DeserializeObject<TweetScannedDTO>(tweetEntity);
@@ -78,6 +80,16 @@ namespace TwitterVision.Twitter
                 {
                     if (response.StatusCode != HttpStatusCode.OK)
                     {
+                        //if a tweet fails to send we log it, in table storage
+                        var failedTweet = new FailedTweetEntity(dto.TwitterStatus)
+                        {
+                            TweetJson = JsonConvert.SerializeObject(response)
+                        };
+
+                        // Documentation Link: Add an entity to a table - https://cda.ms/nn
+                        visionTweetTable.Execute(TableOperation.Insert(failedTweet));
+
+                        log.Error($"VisionScanned Failed to Send TweetId: {dto.TwitterStatus.Id}, Response: {failedTweet.TweetJson}");
                         throw new Exception(response.StatusCode.ToString());
                     }
                 });

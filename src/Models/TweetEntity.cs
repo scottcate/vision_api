@@ -4,6 +4,14 @@ using TweetSharp;
 
 namespace TwitterVision.Models
 {
+    public class FailedTweetEntity : TweetEntity
+    {
+        public FailedTweetEntity(TwitterStatus status) : base(status)
+        {
+            RowKey = "Failed";
+            PartitionKey = status.IdStr;
+        }
+    }
     public class TweetEntity : TableEntity
     {
         public TweetEntity() { }
