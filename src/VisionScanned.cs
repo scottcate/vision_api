@@ -46,17 +46,20 @@ namespace TwitterVision.Twitter
                          
                          "Full API Result: {1}";
 
-                //20 is for the t.co link space
+                const int TCO_LENGTH = 22;
+                const int MAX_LENGTH = 250;
+                const int LINE_BREAKS_CHAR_COUNT = 12;
                 //replyToNames are not counted in tweet length
-                var space = 280 - status.Length - 20 + replyToNames.Length;
+                var spaceAvailable = MAX_LENGTH - status.Length - TCO_LENGTH - LINE_BREAKS_CHAR_COUNT + replyToNames.Length;
+
                 var tags = new List<string>();
+                var tagLength = 0;
                 foreach (var tag in vision.Value.description.tags)
                 {
-                    int length = tag.Length;
-                    if (length + space > 280)
+                    tagLength += tag.Length + 2; //2 is for the ", " when joined
+                    if (tagLength > spaceAvailable)
                         break;
-
-                    space += length + 2; //2 is for the ", " when joined
+                    
                     tags.Add(tag);
                 }
 
