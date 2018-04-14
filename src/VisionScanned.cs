@@ -49,7 +49,7 @@ namespace TwitterVision.Twitter
                          "Full API Result: {1}";
 
                 const int TCO_LENGTH = 22;
-                const int MAX_LENGTH = 250;
+                const int MAX_LENGTH = 230;
                 const int LINE_BREAKS_CHAR_COUNT = 12;
                 //replyToNames are not counted in tweet length
                 var spaceAvailable = MAX_LENGTH - status.Length - TCO_LENGTH - LINE_BREAKS_CHAR_COUNT + replyToNames.Length;

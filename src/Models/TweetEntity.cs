@@ -8,8 +8,8 @@ namespace TwitterVision.Models
     {
         public FailedTweetEntity(TwitterStatus status) : base(status)
         {
-            RowKey = "Failed";
-            PartitionKey = status.IdStr;
+            PartitionKey = "Failed";
+            RowKey = status.IdStr;
         }
     }
     public class TweetEntity : TableEntity
